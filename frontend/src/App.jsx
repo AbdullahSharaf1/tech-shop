@@ -1,33 +1,34 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-
+import Header from "./component/layout/Header/Header.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import WebFont from "webfontloader";
+import React from "react";
+import Footer from "./component/layout/Footer/Footer.jsx";
+import Home from "./component/Home/Home.jsx";
+import ProductDetails from "./component/Product/ProductDetails.jsx";
+import Products from "./component/Product/Products.jsx";
+import Search from "./component/Product/Search.jsx";
 function App() {
-  const [count, setCount] = useState(0);
-
+  React.useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Roboto", "Droid Sans", "Chilanka"],
+      },
+    });
+  }, []);
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <BrowserRouter>
+      <Header />
+
+      <Routes>
+        <Route extact path="/" element={<Home />} />
+        <Route extact path="/product/:id" element={<ProductDetails />} />
+        <Route extact path="/products" element={<Products />} />
+        <Route path="/products/:keyword" element={<Products />} />
+        <Route extact path="/search" element={<Search />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
